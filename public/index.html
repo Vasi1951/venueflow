@@ -7,6 +7,12 @@
   <meta name="description" content="VenueFlow transforms large-scale venue experiences with real-time crowd management, intelligent queue estimation, and smart event coordination.">
   <meta name="keywords" content="event management, crowd control, venue, real-time, queue estimation">
   <meta name="author" content="Mamidi Vashisht">
+  <meta name="theme-color" content="#020617">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="VenueFlow — Smart Event Experience Platform">
+  <meta property="og:description" content="Real-time crowd management, smart queue estimation, and event coordination for large-scale venues.">
+  <meta property="og:type" content="website">
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/variables.css">
@@ -14,246 +20,266 @@
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/components.css">
 
+  <!-- Google Analytics (gtag.js) — Google Services integration -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VENUEFLOW01"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-VENUEFLOW01');
+  </script>
+
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏟️</text></svg>">
 </head>
 <body>
+  <!-- Skip to main content — Accessibility -->
+  <a href="#main-content" class="sr-only" id="skip-link" style="position:absolute;top:-40px;left:0;background:var(--primary-600);color:white;padding:8px 16px;z-index:9999;transition:top 0.3s;" onfocus="this.style.top='0'" onblur="this.style.top='-40px'">
+    Skip to main content
+  </a>
+
   <div id="app">
 
     <!-- Navbar -->
-    <nav class="navbar" id="navbar">
-      <div class="navbar__logo" id="nav-logo">
-        <div class="navbar__logo-icon">🏟️</div>
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+      <div class="navbar__logo" id="nav-logo" role="banner">
+        <div class="navbar__logo-icon" aria-hidden="true">🏟️</div>
         <span>VenueFlow</span>
       </div>
-      <ul class="navbar__nav" id="nav-menu">
-        <li><a class="navbar__link active" data-section="hero" id="nav-home">Home</a></li>
-        <li><a class="navbar__link" data-section="map-section" id="nav-map">Venue Map</a></li>
-        <li><a class="navbar__link" data-section="queue-section" id="nav-queues">Queues</a></li>
-        <li><a class="navbar__link" data-section="schedule-section" id="nav-schedule">Schedule</a></li>
-        <li><a class="navbar__link" data-section="admin-section" id="nav-admin">Admin</a></li>
+      <ul class="navbar__nav" id="nav-menu" role="menubar">
+        <li role="none"><a class="navbar__link active" data-section="hero" id="nav-home" role="menuitem" tabindex="0">Home</a></li>
+        <li role="none"><a class="navbar__link" data-section="map-section" id="nav-map" role="menuitem" tabindex="0">Venue Map</a></li>
+        <li role="none"><a class="navbar__link" data-section="queue-section" id="nav-queues" role="menuitem" tabindex="0">Queues</a></li>
+        <li role="none"><a class="navbar__link" data-section="schedule-section" id="nav-schedule" role="menuitem" tabindex="0">Schedule</a></li>
+        <li role="none"><a class="navbar__link" data-section="admin-section" id="nav-admin" role="menuitem" tabindex="0">Admin</a></li>
       </ul>
       <div class="navbar__actions">
-        <div class="navbar__status" id="live-status">
-          <span class="navbar__status-dot"></span>
+        <div class="navbar__status" id="live-status" role="status" aria-live="polite" aria-label="System status: Live">
+          <span class="navbar__status-dot" aria-hidden="true"></span>
           <span>Live</span>
         </div>
-        <button class="btn btn--sm btn--secondary" id="alerts-toggle" title="Toggle alerts">
-          🔔 <span id="alert-count">0</span>
+        <button class="btn btn--sm btn--secondary" id="alerts-toggle" title="Toggle alerts panel" aria-label="Toggle alerts. Current count:" aria-expanded="false">
+          🔔 <span id="alert-count" aria-live="polite">0</span>
         </button>
       </div>
-      <div class="navbar__hamburger" id="hamburger">
-        <span></span><span></span><span></span>
-      </div>
+      <button class="navbar__hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
     </nav>
 
     <!-- Marquee Banner -->
-    <div class="marquee-banner" id="marquee-banner">
+    <div class="marquee-banner" id="marquee-banner" role="status" aria-live="polite" aria-label="Live event updates">
       <span class="marquee-banner__text" id="marquee-text">
         ⚡ VenueFlow Active — Real-time crowd monitoring enabled · Gate A: Low crowd · Food Court: Moderate wait · Main Stage: Performance starting in 15 min ·
       </span>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-      <div class="hero__shape hero__shape--1"></div>
-      <div class="hero__shape hero__shape--2"></div>
-      <div class="hero__content">
-        <div class="hero__badge">
-          <span class="hero__badge-dot"></span>
-          Live Event Dashboard
-        </div>
-        <h1 class="hero__title">
-          Navigate Your<br>
-          <span class="hero__title-highlight">Event Experience</span>
-        </h1>
-        <p class="hero__subtitle">
-          Real-time crowd intelligence, smart queue management, and seamless event coordination — all in one platform designed for large-scale venues.
-        </p>
-        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-          <button class="btn btn--primary" id="cta-explore" onclick="scrollToSection('map-section')">
-            🗺️ Explore Venue
-          </button>
-          <button class="btn btn--secondary" id="cta-schedule" onclick="scrollToSection('schedule-section')">
-            📅 View Schedule
-          </button>
-        </div>
-        <div class="hero__stats" id="hero-stats">
-          <div class="hero__stat">
-            <div class="hero__stat-value" id="stat-attendees">12,450</div>
-            <div class="hero__stat-label">Live Attendees</div>
-          </div>
-          <div class="hero__stat">
-            <div class="hero__stat-value" id="stat-zones">8</div>
-            <div class="hero__stat-label">Active Zones</div>
-          </div>
-          <div class="hero__stat">
-            <div class="hero__stat-value" id="stat-avg-wait">4m</div>
-            <div class="hero__stat-label">Avg. Wait Time</div>
-          </div>
-          <div class="hero__stat">
-            <div class="hero__stat-value" id="stat-events">12</div>
-            <div class="hero__stat-label">Events Today</div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Main Content -->
+    <main id="main-content">
 
-    <!-- Venue Map Section -->
-    <section class="section" id="map-section">
-      <div class="container">
-        <div class="section__header">
-          <h2 class="section__title">🗺️ Interactive <span class="text-gradient">Venue Map</span></h2>
-          <p class="section__subtitle">Live crowd density visualization — hover on zones for real-time details</p>
-        </div>
-        <div class="venue-map" id="venue-map">
-          <div class="venue-map__svg-container" id="map-container">
-            <!-- SVG map rendered by JS -->
+      <!-- Hero Section -->
+      <section class="hero" id="hero" aria-labelledby="hero-title">
+        <div class="hero__shape hero__shape--1" aria-hidden="true"></div>
+        <div class="hero__shape hero__shape--2" aria-hidden="true"></div>
+        <div class="hero__content">
+          <div class="hero__badge" aria-label="Live Event Dashboard - currently active">
+            <span class="hero__badge-dot" aria-hidden="true"></span>
+            Live Event Dashboard
           </div>
-          <div class="venue-map__legend">
-            <div class="venue-map__legend-item">
-              <div class="venue-map__legend-dot" style="background: var(--crowd-low)"></div>
-              Low Crowd
+          <h1 class="hero__title" id="hero-title">
+            Navigate Your<br>
+            <span class="hero__title-highlight">Event Experience</span>
+          </h1>
+          <p class="hero__subtitle">
+            Real-time crowd intelligence, smart queue management, and seamless event coordination — all in one platform designed for large-scale venues.
+          </p>
+          <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <button class="btn btn--primary" id="cta-explore" onclick="scrollToSection('map-section')" aria-label="Explore the interactive venue map">
+              🗺️ Explore Venue
+            </button>
+            <button class="btn btn--secondary" id="cta-schedule" onclick="scrollToSection('schedule-section')" aria-label="View today's event schedule">
+              📅 View Schedule
+            </button>
+          </div>
+          <div class="hero__stats" id="hero-stats" role="region" aria-label="Live event statistics">
+            <div class="hero__stat">
+              <div class="hero__stat-value" id="stat-attendees" aria-label="Live attendees count">12,450</div>
+              <div class="hero__stat-label">Live Attendees</div>
             </div>
-            <div class="venue-map__legend-item">
-              <div class="venue-map__legend-dot" style="background: var(--crowd-medium)"></div>
-              Moderate
+            <div class="hero__stat">
+              <div class="hero__stat-value" id="stat-zones" aria-label="Active zones count">8</div>
+              <div class="hero__stat-label">Active Zones</div>
             </div>
-            <div class="venue-map__legend-item">
-              <div class="venue-map__legend-dot" style="background: var(--crowd-high)"></div>
-              High Density
+            <div class="hero__stat">
+              <div class="hero__stat-value" id="stat-avg-wait" aria-label="Average wait time">4m</div>
+              <div class="hero__stat-label">Avg. Wait Time</div>
             </div>
-            <div class="venue-map__legend-item" style="margin-left: auto;">
-              <span style="font-family: var(--font-mono); color: var(--neutral-500); font-size: 0.75rem;" id="map-last-update">Updated: just now</span>
+            <div class="hero__stat">
+              <div class="hero__stat-value" id="stat-events" aria-label="Events today count">12</div>
+              <div class="hero__stat-label">Events Today</div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Queue Section -->
-    <section class="section" id="queue-section">
-      <div class="container">
-        <div class="section__header">
-          <h2 class="section__title">⏱️ Live <span class="text-gradient">Queue Estimates</span></h2>
-          <p class="section__subtitle">Check real-time wait times across all service points</p>
-        </div>
-        <div class="queue-grid" id="queue-grid">
-          <!-- Queue cards rendered by JS -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Schedule Section -->
-    <section class="section" id="schedule-section">
-      <div class="container">
-        <div class="section__header">
-          <h2 class="section__title">📅 Event <span class="text-gradient">Schedule</span></h2>
-          <p class="section__subtitle">Today's lineup — tap to set reminders</p>
-        </div>
-        <div class="tabs" id="schedule-tabs">
-          <button class="tab active" data-stage="all" id="tab-all">All Events</button>
-          <button class="tab" data-stage="main" id="tab-main">Main Stage</button>
-          <button class="tab" data-stage="tech" id="tab-tech">Tech Arena</button>
-          <button class="tab" data-stage="food" id="tab-food">Food Court</button>
-        </div>
-        <div class="schedule-list" id="schedule-list">
-          <!-- Schedule items rendered by JS -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Admin Section -->
-    <section class="section" id="admin-section">
-      <div class="container">
-        <div class="section__header">
-          <h2 class="section__title">👨‍💼 Organizer <span class="text-gradient">Control Panel</span></h2>
-          <p class="section__subtitle">Manage crowd, broadcast alerts, and coordinate your event in real-time</p>
-        </div>
-        <div class="admin-panel">
-          <div class="admin-panel__header">
-            <h3 style="color: white; display: flex; align-items: center; gap: 8px;">
-              ⚙️ Event Command Center
-            </h3>
-            <span class="badge badge--info">Admin Access</span>
+      <!-- Venue Map Section -->
+      <section class="section" id="map-section" aria-labelledby="map-title">
+        <div class="container">
+          <div class="section__header">
+            <h2 class="section__title" id="map-title">🗺️ Interactive <span class="text-gradient">Venue Map</span></h2>
+            <p class="section__subtitle">Live crowd density visualization — hover on zones for real-time details</p>
           </div>
-          <div class="admin-panel__body">
-            <div class="admin-panel__grid" id="admin-stats">
-              <!-- Admin stats rendered by JS -->
+          <div class="venue-map" id="venue-map" role="img" aria-label="Interactive venue map showing crowd density across different zones. Green zones have low crowd, yellow zones have moderate crowd, red zones have high crowd density.">
+            <div class="venue-map__svg-container" id="map-container">
+              <!-- SVG map rendered by JS -->
             </div>
-            <div class="dashboard-grid">
-              <!-- Alert broadcast -->
-              <div class="card">
-                <div class="card__header">
-                  <div class="card__title">📢 Broadcast Alert</div>
-                </div>
-                <div class="card__body">
-                  <form class="admin-form" id="alert-form">
-                    <div class="admin-form__group">
-                      <label class="admin-form__label">Alert Type</label>
-                      <select class="admin-form__select" id="alert-type">
-                        <option value="info">ℹ️ Information</option>
-                        <option value="warning">⚠️ Warning</option>
-                        <option value="danger">🚨 Emergency</option>
-                        <option value="success">✅ Good News</option>
-                      </select>
-                    </div>
-                    <div class="admin-form__group">
-                      <label class="admin-form__label">Title</label>
-                      <input class="admin-form__input" id="alert-title-input" type="text" placeholder="e.g., Gate B is less crowded">
-                    </div>
-                    <div class="admin-form__group">
-                      <label class="admin-form__label">Message</label>
-                      <textarea class="admin-form__textarea" id="alert-message-input" placeholder="Detailed message for attendees..."></textarea>
-                    </div>
-                    <button class="btn btn--primary" type="submit" id="send-alert-btn">📡 Broadcast Now</button>
-                  </form>
-                </div>
+            <div class="venue-map__legend" role="legend" aria-label="Map color legend">
+              <div class="venue-map__legend-item">
+                <div class="venue-map__legend-dot" style="background: var(--crowd-low)" aria-hidden="true"></div>
+                Low Crowd
               </div>
-              <!-- Zone control -->
-              <div class="card">
-                <div class="card__header">
-                  <div class="card__title">🎛️ Zone Crowd Override</div>
-                </div>
-                <div class="card__body">
-                  <form class="admin-form" id="zone-form">
-                    <div class="admin-form__group">
-                      <label class="admin-form__label">Select Zone</label>
-                      <select class="admin-form__select" id="zone-select">
-                        <!-- Populated by JS -->
-                      </select>
-                    </div>
-                    <div class="admin-form__group">
-                      <label class="admin-form__label">Set Crowd Level</label>
-                      <select class="admin-form__select" id="zone-crowd-level">
-                        <option value="low">🟢 Low</option>
-                        <option value="medium">🟡 Moderate</option>
-                        <option value="high">🔴 High</option>
-                      </select>
-                    </div>
-                    <div class="admin-form__group">
-                      <label class="admin-form__label">Capacity Override (%)</label>
-                      <input class="admin-form__input" id="zone-capacity-input" type="number" min="0" max="100" placeholder="e.g., 75">
-                    </div>
-                    <button class="btn btn--accent" type="submit" id="update-zone-btn">🔄 Update Zone</button>
-                  </form>
-                </div>
+              <div class="venue-map__legend-item">
+                <div class="venue-map__legend-dot" style="background: var(--crowd-medium)" aria-hidden="true"></div>
+                Moderate
+              </div>
+              <div class="venue-map__legend-item">
+                <div class="venue-map__legend-dot" style="background: var(--crowd-high)" aria-hidden="true"></div>
+                High Density
+              </div>
+              <div class="venue-map__legend-item" style="margin-left: auto;">
+                <span style="font-family: var(--font-mono); color: var(--neutral-500); font-size: 0.75rem;" id="map-last-update" aria-live="polite">Updated: just now</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <!-- Queue Section -->
+      <section class="section" id="queue-section" aria-labelledby="queue-title">
+        <div class="container">
+          <div class="section__header">
+            <h2 class="section__title" id="queue-title">⏱️ Live <span class="text-gradient">Queue Estimates</span></h2>
+            <p class="section__subtitle">Check real-time wait times across all service points</p>
+          </div>
+          <div class="queue-grid" id="queue-grid" role="region" aria-label="Queue wait time cards" aria-live="polite">
+            <!-- Queue cards rendered by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Schedule Section -->
+      <section class="section" id="schedule-section" aria-labelledby="schedule-title">
+        <div class="container">
+          <div class="section__header">
+            <h2 class="section__title" id="schedule-title">📅 Event <span class="text-gradient">Schedule</span></h2>
+            <p class="section__subtitle">Today's lineup — tap to set reminders</p>
+          </div>
+          <div class="tabs" id="schedule-tabs" role="tablist" aria-label="Filter events by stage">
+            <button class="tab active" data-stage="all" id="tab-all" role="tab" aria-selected="true" aria-controls="schedule-list">All Events</button>
+            <button class="tab" data-stage="main" id="tab-main" role="tab" aria-selected="false" aria-controls="schedule-list">Main Stage</button>
+            <button class="tab" data-stage="tech" id="tab-tech" role="tab" aria-selected="false" aria-controls="schedule-list">Tech Arena</button>
+            <button class="tab" data-stage="food" id="tab-food" role="tab" aria-selected="false" aria-controls="schedule-list">Food Court</button>
+          </div>
+          <div class="schedule-list" id="schedule-list" role="tabpanel" aria-label="Event schedule list">
+            <!-- Schedule items rendered by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Admin Section -->
+      <section class="section" id="admin-section" aria-labelledby="admin-title">
+        <div class="container">
+          <div class="section__header">
+            <h2 class="section__title" id="admin-title">👨‍💼 Organizer <span class="text-gradient">Control Panel</span></h2>
+            <p class="section__subtitle">Manage crowd, broadcast alerts, and coordinate your event in real-time</p>
+          </div>
+          <div class="admin-panel" role="region" aria-label="Admin control panel">
+            <div class="admin-panel__header">
+              <h3 style="color: white; display: flex; align-items: center; gap: 8px;">
+                ⚙️ Event Command Center
+              </h3>
+              <span class="badge badge--info">Admin Access</span>
+            </div>
+            <div class="admin-panel__body">
+              <div class="admin-panel__grid" id="admin-stats" role="region" aria-label="Event statistics overview" aria-live="polite">
+                <!-- Admin stats rendered by JS -->
+              </div>
+              <div class="dashboard-grid">
+                <!-- Alert broadcast -->
+                <div class="card">
+                  <div class="card__header">
+                    <div class="card__title" id="broadcast-title">📢 Broadcast Alert</div>
+                  </div>
+                  <div class="card__body">
+                    <form class="admin-form" id="alert-form" aria-labelledby="broadcast-title">
+                      <div class="admin-form__group">
+                        <label class="admin-form__label" for="alert-type">Alert Type</label>
+                        <select class="admin-form__select" id="alert-type" required aria-required="true">
+                          <option value="info">ℹ️ Information</option>
+                          <option value="warning">⚠️ Warning</option>
+                          <option value="danger">🚨 Emergency</option>
+                          <option value="success">✅ Good News</option>
+                        </select>
+                      </div>
+                      <div class="admin-form__group">
+                        <label class="admin-form__label" for="alert-title-input">Title</label>
+                        <input class="admin-form__input" id="alert-title-input" type="text" placeholder="e.g., Gate B is less crowded" required aria-required="true" maxlength="100" autocomplete="off">
+                      </div>
+                      <div class="admin-form__group">
+                        <label class="admin-form__label" for="alert-message-input">Message</label>
+                        <textarea class="admin-form__textarea" id="alert-message-input" placeholder="Detailed message for attendees..." required aria-required="true" maxlength="500"></textarea>
+                      </div>
+                      <button class="btn btn--primary" type="submit" id="send-alert-btn">📡 Broadcast Now</button>
+                    </form>
+                  </div>
+                </div>
+                <!-- Zone control -->
+                <div class="card">
+                  <div class="card__header">
+                    <div class="card__title" id="zone-control-title">🎛️ Zone Crowd Override</div>
+                  </div>
+                  <div class="card__body">
+                    <form class="admin-form" id="zone-form" aria-labelledby="zone-control-title">
+                      <div class="admin-form__group">
+                        <label class="admin-form__label" for="zone-select">Select Zone</label>
+                        <select class="admin-form__select" id="zone-select" required aria-required="true">
+                          <!-- Populated by JS -->
+                        </select>
+                      </div>
+                      <div class="admin-form__group">
+                        <label class="admin-form__label" for="zone-crowd-level">Set Crowd Level</label>
+                        <select class="admin-form__select" id="zone-crowd-level" required aria-required="true">
+                          <option value="low">🟢 Low</option>
+                          <option value="medium">🟡 Moderate</option>
+                          <option value="high">🔴 High</option>
+                        </select>
+                      </div>
+                      <div class="admin-form__group">
+                        <label class="admin-form__label" for="zone-capacity-input">Capacity Override (%)</label>
+                        <input class="admin-form__input" id="zone-capacity-input" type="number" min="0" max="100" placeholder="e.g., 75" aria-describedby="capacity-help" autocomplete="off">
+                        <small id="capacity-help" style="color: var(--neutral-500); font-size: 0.75rem;">Enter a value between 0 and 100</small>
+                      </div>
+                      <button class="btn btn--accent" type="submit" id="update-zone-btn">🔄 Update Zone</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
 
     <!-- Footer -->
-    <footer class="footer" id="footer">
+    <footer class="footer" id="footer" role="contentinfo">
       <div class="container">
         <p class="footer__text">
-          Built with 🏟️ by <a href="https://github.com/Vasi1951" target="_blank">Mamidi Vashisht</a>
-          using <a href="https://promptwars.in" target="_blank">Google Antigravity</a>
+          Built with 🏟️ by <a href="https://github.com/Vasi1951" target="_blank" rel="noopener noreferrer">Mamidi Vashisht</a>
+          using <a href="https://promptwars.in" target="_blank" rel="noopener noreferrer">Google Antigravity</a>
         </p>
         <div class="footer__links">
-          <a href="https://github.com/Vasi1951" target="_blank" class="footer__link">GitHub</a>
+          <a href="https://github.com/Vasi1951" target="_blank" rel="noopener noreferrer" class="footer__link">GitHub</a>
           <a href="#" class="footer__link">Privacy</a>
           <a href="#" class="footer__link">Terms</a>
         </div>
@@ -261,7 +287,7 @@
     </footer>
 
     <!-- Alerts Panel (fixed position, dynamic) -->
-    <div class="alerts-panel" id="alerts-panel">
+    <div class="alerts-panel" id="alerts-panel" role="log" aria-label="Smart alert notifications" aria-live="assertive">
       <!-- Alert toasts dynamically inserted by JS -->
     </div>
 

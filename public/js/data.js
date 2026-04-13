@@ -160,3 +160,8 @@ const VenueData = (() => {
     overrideZone, tick, init,
   };
 })();
+
+// Node.js module export (for testing)
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = VenueData;
+}

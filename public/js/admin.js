@@ -4,6 +4,19 @@
 
 const Admin = (() => {
 
+  /**
+   * Sanitize user input to prevent XSS attacks.
+   * Escapes HTML special characters.
+   * @param {string} str - Raw user input
+   * @returns {string} Sanitized string safe for HTML rendering
+   */
+  function sanitize(str) {
+    if (typeof str !== 'string') return '';
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#x27;', '/': '&#x2F;' };
+    return str.replace(/[&<>"'/]/g, char => map[char] || char).trim();
+  }
+
+
   function renderStats() {
     const container = document.getElementById('admin-stats');
     if (!container) return;
@@ -57,8 +70,8 @@ const Admin = (() => {
       alertForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const type = document.getElementById('alert-type').value;
-        const title = document.getElementById('alert-title-input').value;
-        const message = document.getElementById('alert-message-input').value;
+        const title = sanitize(document.getElementById('alert-title-input').value);
+        const message = sanitize(document.getElementById('alert-message-input').value);
 
         if (title && message) {
           Alerts.addToast({ type, title, message });

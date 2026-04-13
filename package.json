@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "test": "node public/js/tests.js"
   },
   "keywords": ["event", "crowd-management", "venue", "real-time", "hackathon"],
   "author": "Mamidi Vashisht",
