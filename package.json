@@ -1,0 +1,16 @@
+{
+  "name": "venueflow",
+  "version": "1.0.0",
+  "description": "VenueFlow — Smart Event Experience Platform for large-scale venues. Real-time crowd management, queue estimation, and event coordination.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["event", "crowd-management", "venue", "real-time", "hackathon"],
+  "author": "Mamidi Vashisht",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VenueFlow — Smart Event Experience Platform</title>
+  <meta name="description" content="VenueFlow transforms large-scale venue experiences with real-time crowd management, intelligent queue estimation, and smart event coordination.">
+  <meta name="keywords" content="event management, crowd control, venue, real-time, queue estimation">
+  <meta name="author" content="Mamidi Vashisht">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏟️</text></svg>">
+</head>
+<body>
+  <div id="app">
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+      <div class="navbar__logo" id="nav-logo">
+        <div class="navbar__logo-icon">🏟️</div>
+        <span>VenueFlow</span>
+      </div>
+      <ul class="navbar__nav" id="nav-menu">
+        <li><a class="navbar__link active" data-section="hero" id="nav-home">Home</a></li>
+        <li><a class="navbar__link" data-section="map-section" id="nav-map">Venue Map</a></li>
+        <li><a class="navbar__link" data-section="queue-section" id="nav-queues">Queues</a></li>
+        <li><a class="navbar__link" data-section="schedule-section" id="nav-schedule">Schedule</a></li>
+        <li><a class="navbar__link" data-section="admin-section" id="nav-admin">Admin</a></li>
+      </ul>
+      <div class="navbar__actions">
+        <div class="navbar__status" id="live-status">
+          <span class="navbar__status-dot"></span>
+          <span>Live</span>
+        </div>
+        <button class="btn btn--sm btn--secondary" id="alerts-toggle" title="Toggle alerts">
+          🔔 <span id="alert-count">0</span>
+        </button>
+      </div>
+      <div class="navbar__hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+
+    <!-- Marquee Banner -->
+    <div class="marquee-banner" id="marquee-banner">
+      <span class="marquee-banner__text" id="marquee-text">
+        ⚡ VenueFlow Active — Real-time crowd monitoring enabled · Gate A: Low crowd · Food Court: Moderate wait · Main Stage: Performance starting in 15 min ·
+      </span>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero__shape hero__shape--1"></div>
+      <div class="hero__shape hero__shape--2"></div>
+      <div class="hero__content">
+        <div class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          Live Event Dashboard
+        </div>
+        <h1 class="hero__title">
+          Navigate Your<br>
+          <span class="hero__title-highlight">Event Experience</span>
+        </h1>
+        <p class="hero__subtitle">
+          Real-time crowd intelligence, smart queue management, and seamless event coordination — all in one platform designed for large-scale venues.
+        </p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <button class="btn btn--primary" id="cta-explore" onclick="scrollToSection('map-section')">
+            🗺️ Explore Venue
+          </button>
+          <button class="btn btn--secondary" id="cta-schedule" onclick="scrollToSection('schedule-section')">
+            📅 View Schedule
+          </button>
+        </div>
+        <div class="hero__stats" id="hero-stats">
+          <div class="hero__stat">
+            <div class="hero__stat-value" id="stat-attendees">12,450</div>
+            <div class="hero__stat-label">Live Attendees</div>
+          </div>
+          <div class="hero__stat">
+            <div class="hero__stat-value" id="stat-zones">8</div>
+            <div class="hero__stat-label">Active Zones</div>
+          </div>
+          <div class="hero__stat">
+            <div class="hero__stat-value" id="stat-avg-wait">4m</div>
+            <div class="hero__stat-label">Avg. Wait Time</div>
+          </div>
+          <div class="hero__stat">
+            <div class="hero__stat-value" id="stat-events">12</div>
+            <div class="hero__stat-label">Events Today</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Venue Map Section -->
+    <section class="section" id="map-section">
+      <div class="container">
+        <div class="section__header">
+          <h2 class="section__title">🗺️ Interactive <span class="text-gradient">Venue Map</span></h2>
+          <p class="section__subtitle">Live crowd density visualization — hover on zones for real-time details</p>
+        </div>
+        <div class="venue-map" id="venue-map">
+          <div class="venue-map__svg-container" id="map-container">
+            <!-- SVG map rendered by JS -->
+          </div>
+          <div class="venue-map__legend">
+            <div class="venue-map__legend-item">
+              <div class="venue-map__legend-dot" style="background: var(--crowd-low)"></div>
+              Low Crowd
+            </div>
+            <div class="venue-map__legend-item">
+              <div class="venue-map__legend-dot" style="background: var(--crowd-medium)"></div>
+              Moderate
+            </div>
+            <div class="venue-map__legend-item">
+              <div class="venue-map__legend-dot" style="background: var(--crowd-high)"></div>
+              High Density
+            </div>
+            <div class="venue-map__legend-item" style="margin-left: auto;">
+              <span style="font-family: var(--font-mono); color: var(--neutral-500); font-size: 0.75rem;" id="map-last-update">Updated: just now</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Queue Section -->
+    <section class="section" id="queue-section">
+      <div class="container">
+        <div class="section__header">
+          <h2 class="section__title">⏱️ Live <span class="text-gradient">Queue Estimates</span></h2>
+          <p class="section__subtitle">Check real-time wait times across all service points</p>
+        </div>
+        <div class="queue-grid" id="queue-grid">
+          <!-- Queue cards rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section class="section" id="schedule-section">
+      <div class="container">
+        <div class="section__header">
+          <h2 class="section__title">📅 Event <span class="text-gradient">Schedule</span></h2>
+          <p class="section__subtitle">Today's lineup — tap to set reminders</p>
+        </div>
+        <div class="tabs" id="schedule-tabs">
+          <button class="tab active" data-stage="all" id="tab-all">All Events</button>
+          <button class="tab" data-stage="main" id="tab-main">Main Stage</button>
+          <button class="tab" data-stage="tech" id="tab-tech">Tech Arena</button>
+          <button class="tab" data-stage="food" id="tab-food">Food Court</button>
+        </div>
+        <div class="schedule-list" id="schedule-list">
+          <!-- Schedule items rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin Section -->
+    <section class="section" id="admin-section">
+      <div class="container">
+        <div class="section__header">
+          <h2 class="section__title">👨‍💼 Organizer <span class="text-gradient">Control Panel</span></h2>
+          <p class="section__subtitle">Manage crowd, broadcast alerts, and coordinate your event in real-time</p>
+        </div>
+        <div class="admin-panel">
+          <div class="admin-panel__header">
+            <h3 style="color: white; display: flex; align-items: center; gap: 8px;">
+              ⚙️ Event Command Center
+            </h3>
+            <span class="badge badge--info">Admin Access</span>
+          </div>
+          <div class="admin-panel__body">
+            <div class="admin-panel__grid" id="admin-stats">
+              <!-- Admin stats rendered by JS -->
+            </div>
+            <div class="dashboard-grid">
+              <!-- Alert broadcast -->
+              <div class="card">
+                <div class="card__header">
+                  <div class="card__title">📢 Broadcast Alert</div>
+                </div>
+                <div class="card__body">
+                  <form class="admin-form" id="alert-form">
+                    <div class="admin-form__group">
+                      <label class="admin-form__label">Alert Type</label>
+                      <select class="admin-form__select" id="alert-type">
+                        <option value="info">ℹ️ Information</option>
+                        <option value="warning">⚠️ Warning</option>
+                        <option value="danger">🚨 Emergency</option>
+                        <option value="success">✅ Good News</option>
+                      </select>
+                    </div>
+                    <div class="admin-form__group">
+                      <label class="admin-form__label">Title</label>
+                      <input class="admin-form__input" id="alert-title-input" type="text" placeholder="e.g., Gate B is less crowded">
+                    </div>
+                    <div class="admin-form__group">
+                      <label class="admin-form__label">Message</label>
+                      <textarea class="admin-form__textarea" id="alert-message-input" placeholder="Detailed message for attendees..."></textarea>
+                    </div>
+                    <button class="btn btn--primary" type="submit" id="send-alert-btn">📡 Broadcast Now</button>
+                  </form>
+                </div>
+              </div>
+              <!-- Zone control -->
+              <div class="card">
+                <div class="card__header">
+                  <div class="card__title">🎛️ Zone Crowd Override</div>
+                </div>
+                <div class="card__body">
+                  <form class="admin-form" id="zone-form">
+                    <div class="admin-form__group">
+                      <label class="admin-form__label">Select Zone</label>
+                      <select class="admin-form__select" id="zone-select">
+                        <!-- Populated by JS -->
+                      </select>
+                    </div>
+                    <div class="admin-form__group">
+                      <label class="admin-form__label">Set Crowd Level</label>
+                      <select class="admin-form__select" id="zone-crowd-level">
+                        <option value="low">🟢 Low</option>
+                        <option value="medium">🟡 Moderate</option>
+                        <option value="high">🔴 High</option>
+                      </select>
+                    </div>
+                    <div class="admin-form__group">
+                      <label class="admin-form__label">Capacity Override (%)</label>
+                      <input class="admin-form__input" id="zone-capacity-input" type="number" min="0" max="100" placeholder="e.g., 75">
+                    </div>
+                    <button class="btn btn--accent" type="submit" id="update-zone-btn">🔄 Update Zone</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+      <div class="container">
+        <p class="footer__text">
+          Built with 🏟️ by <a href="https://github.com/Vasi1951" target="_blank">Mamidi Vashisht</a>
+          using <a href="https://promptwars.in" target="_blank">Google Antigravity</a>
+        </p>
+        <div class="footer__links">
+          <a href="https://github.com/Vasi1951" target="_blank" class="footer__link">GitHub</a>
+          <a href="#" class="footer__link">Privacy</a>
+          <a href="#" class="footer__link">Terms</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Alerts Panel (fixed position, dynamic) -->
+    <div class="alerts-panel" id="alerts-panel">
+      <!-- Alert toasts dynamically inserted by JS -->
+    </div>
+
+  </div>
+
+  <!-- JavaScript -->
+  <script src="js/data.js"></script>
+  <script src="js/venue-map.js"></script>
+  <script src="js/heatmap.js"></script>
+  <script src="js/schedule.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
